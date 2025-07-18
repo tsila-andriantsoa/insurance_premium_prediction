@@ -15,6 +15,7 @@ Repository for MLOPS Zoomcamp capstone project
 
 - Activate environment
 
+``` conda init ```
 ``` conda activate myenv ```
 
 - Install package
