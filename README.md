@@ -1,56 +1,43 @@
-# insurance_premium_prediction
-Repository for MLOPS Zoomcamp capstone project
 
-# A. Building model and experiment tracking
+# Premium Insurance Prediction API
 
-## 1. Prepare environment
+This project is an end to end machine learning project for practing MLOPS Zoomcamp by DataTalksClub.
 
-- Create environment 
+## Project Structure
 
-``` conda create --name myenv python=3.10 ```
+```
+.
+├── config                 # Configuration folder for experiment tracking
+├── data                   # Prepared data for training model
+├── notebook               # Exploration
+├── orchestration          # Orchestration
+├── webservice             # Model deployment
+├── app.py                 # Flask app
+├── Dockerfile             # Docker configuration
+├── requirements.txt       # Python dependencies
+├── README.md              # Documentation
 
-- List existing environment
+```
 
-``` conda env list ```
+## Features
 
-- Activate environment
+- Training machine learning model to predict premium insurance
+- Use MLFlow for experiment tracking
+- Use prefect for pipeline and save model into S3 bucket.
+- Loads trained ML model from S3 using `boto3`
+- Dockerized for local or cloud deployment
+- Simple REST API with `/predict` endpoints
 
-``` conda init ```
-``` conda activate myenv ```
+## Prerequisites
 
-- Install package
+- Building python environment
+- Installing required packages using requirements.txt
+- An **AWS S3 bucket** and AWS credentials with permission to read from S3
 
- ``` pip install -r requirements.txt ```
-
-
-## 2. Run MLFlow
-
-``` mlflow ui --backend-store-uri sqlite:///mlflow/db ```
-
-## 3. Set tracking URI
-
-``` mlflow.set_tracking_uri('sqlite:///mlflow/db') ```
-
-## 4. Set experiment
-
-``` mlflow.set_experiment('nyc-taxi-experiment') ```
-
-# 5. Run experiment
-
-``` with mlflow.start_run():
-    mlflow.set_tag("developper", "Tsila")
-    mlflow.log_param("train-data-path", "../data/train.csv")
-    mlflow.log_param("validation-data-path", "data/green_tripdata_2025-02.parquet")
-    mlflow.log_param("alpha",alpha) ```
-
-
-# B. Model monitoring
-
-## 2. Configure environment for monitoring
-- Create docker-compose file
-- Create grafana datasources file
-- Build docker containers
-    - for the first time, you need to build our containers
- ``` docker-compose up --build ```
-
+```env
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+AWS_BUCKET_NAME=your_s3_bucket_name
+S3_MODEL_KEY=models/pipeline_baseline.pkl
+```
 
