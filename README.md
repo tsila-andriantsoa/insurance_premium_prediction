@@ -1,5 +1,5 @@
 
-# Premium Insurance Prediction API
+# Premium Insurance Prediction
 
 This project is an end to end machine learning project for practing MLOPS Zoomcamp by DataTalksClub.
 
