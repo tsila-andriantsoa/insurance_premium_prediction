@@ -15,3 +15,7 @@ psycopg_binary
 evidently==0.6.7
 numpy
 matplotlib
+boto3
+botocore
+waitress==3.0.2
+Werkzeug==2.2.2
