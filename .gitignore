@@ -5,7 +5,7 @@
 data/raw/
 
 # Ignore MLflow SQLite backend DB
-mlflow/db/
+mlflow.db/
 
 # Ignore MLflow run artifacts and metadata
 mlruns/
