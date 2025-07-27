@@ -1,7 +1,11 @@
+# Ignore jupyter checkpoints files
 .ipynb_checkpoints/
 
+# Ignore raw data files
+data/raw/
 
+# Ignore MLflow SQLite backend DB
+mlflow/db/
 
-# mlflow
-*mlflow.db*
-*mlrun*
+# Ignore MLflow run artifacts and metadata
+mlruns/
