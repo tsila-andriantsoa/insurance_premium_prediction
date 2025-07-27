@@ -1,7 +1,12 @@
 
 # Premium Insurance Prediction
 
-This project is an end to end machine learning project for practing MLOPS Zoomcamp by DataTalksClub.
+The objectif of this project is to provide an end to end machine learning project to predict the Insurance Premium Prediction from the dataset [https://www.kaggle.com/competitions/playground-series-s4e12/data](Regression with an Insurance Dataset).
+and practice Machine Learning Operations from the amazing courses of MLOPS Zoomcamp by DataTalksClub. 
+
+## Dataset
+
+The dataset is available on [Kaggle](https://www.kaggle.com/competitions/playground-series-s4e12/overview)
 
 ## Project Structure
 
