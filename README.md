@@ -1,7 +1,7 @@
 # insurance_premium_prediction
 Repository for MLOPS Zoomcamp capstone project
 
-# A. Experiment tracking
+# A. Building model and experiment tracking
 
 ## 1. Prepare environment
 
@@ -21,6 +21,7 @@ Repository for MLOPS Zoomcamp capstone project
 - Install package
 
  ``` pip install -r requirements.txt ```
+
 
 ## 2. Run MLFlow
 
@@ -42,4 +43,14 @@ Repository for MLOPS Zoomcamp capstone project
     mlflow.log_param("validation-data-path", "data/green_tripdata_2025-02.parquet")
     mlflow.log_param("alpha",alpha) ```
 
-    
+
+# B. Model monitoring
+
+## 2. Configure environment for monitoring
+- Create docker-compose file
+- Create grafana datasources file
+- Build docker containers
+    - for the first time, you need to build our containers
+ ``` docker-compose up --build ```
+
+
