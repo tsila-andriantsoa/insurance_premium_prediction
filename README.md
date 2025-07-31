@@ -1,7 +1,12 @@
 
-# Premium Insurance Prediction API
+# Premium Insurance Prediction
 
-This project is an end to end machine learning project for practing MLOPS Zoomcamp by DataTalksClub.
+The objectif of this project is to provide an end to end machine learning project to predict the Insurance Premium Prediction from the dataset [https://www.kaggle.com/competitions/playground-series-s4e12/data](Regression with an Insurance Dataset).
+and practice Machine Learning Operations from the amazing courses of MLOPS Zoomcamp by DataTalksClub. 
+
+## Dataset
+
+The dataset is available on [Kaggle](https://www.kaggle.com/competitions/playground-series-s4e12/overview)
 
 ## Project Structure
 
@@ -32,14 +37,7 @@ This project is an end to end machine learning project for practing MLOPS Zoomca
 
 - Building python environment
 - Installing required packages using requirements.txt
-- An **AWS S3 bucket** and AWS credentials with permission to read from S3
-
-```env
-AWS_ACCESS_KEY_ID=your_aws_access_key
-AWS_SECRET_ACCESS_KEY=your_aws_secret_key
-AWS_BUCKET_NAME=your_s3_bucket_name
-S3_MODEL_KEY=models/pipeline_baseline.pkl
-```
+- An **AWS S3 bucket** and AWS credentials with permission to read from S3 (ACCESS_KEY_ID, SECRET_ACCESS_KEY, BUCKET_NAME, MODEL_KEY)
 
 ## Step
 
