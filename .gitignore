@@ -1,9 +1,6 @@
 # Ignore jupyter checkpoints files
 .ipynb_checkpoints/
 
-# Ignore raw data files
-data/raw/
-
 # Igne MLflow experiment tracking tool during exploration phase
 notebook/mlruns/
 notebook/mlflow.db
