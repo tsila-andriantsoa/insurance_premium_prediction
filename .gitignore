@@ -4,8 +4,15 @@
 # Ignore raw data files
 data/raw/
 
+# Igne MLflow experiment tracking tool during exploration phase
+notebook/mlruns/
+notebook/mlflow.db
+
 # Ignore MLflow SQLite backend DB
 mlflow.db/
 
 # Ignore MLflow run artifacts and metadata
 mlruns/
+
+# Ignore config folder used for local experiment tracking and grafana
+config/
