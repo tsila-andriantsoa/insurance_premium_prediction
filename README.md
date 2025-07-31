@@ -41,3 +41,14 @@ AWS_BUCKET_NAME=your_s3_bucket_name
 S3_MODEL_KEY=models/pipeline_baseline.pkl
 ```
 
+## Step
+
+# data preparation
+src/data_preparation.py
+# model training and experimentation
+src/train.py
+
+## experiment tracking
+mlflow ui \
+  --backend-store-uri sqlite:///mlflow.db \
+  --default-artifact-root ./mlruns
