@@ -4,8 +4,13 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 # Load datasets
-train = pd.read_csv('../data/raw/train.csv', )
-test = pd.read_csv('../data/raw/test.csv', )
+# train = pd.read_csv('../data/raw/train.csv', )
+# test = pd.read_csv('../data/raw/test.csv', )
+
+train = pd.read_parquet('../data/raw/train.parquet')
+test = pd.read_parquet('../data/raw/test.parquet')
+
+print(train.shape, test.shape)
 
 # rename columns
 train.columns = [str.lower(col).replace(' ','_') for col in train.columns]
@@ -25,8 +30,8 @@ numerical_features = [n for n in numerical_features if n != 'previous_claims']
 categorical_features = [n for n in categorical_features if n != 'occupation']
 
 from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer, make_column_selector
-from sklearn.preprocessing import StandardScaler, OneHotEncoder, LabelEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
 
 # Preprocessing for numerical data
@@ -77,5 +82,14 @@ top_features = ['credit_score', 'customer_feedback_good', 'annual_income', 'heal
 
 X_train_part, X_validation_part, y_train_part, y_validation_part = train_test_split(df_X_full_train_transformed[top_features], Y_train, test_size=0.2, random_state=42)
 
+# save data
+df_training = X_train_part.copy()
+df_training['premium_amount'] = y_train_part.values  # Or just y_training_part if the index aligns
 
+df_validation = X_validation_part.copy()
+df_validation['premium_amount'] = y_validation_part.values  # Or just y_training_part if the index aligns
 
+df_training.to_parquet('../data/prepared/df_training.parquet', index=False)
+df_validation.to_parquet('../data/prepared/df_validation.parquet', index=False)
+
+print(df_training.shape, df_validation.shape)
