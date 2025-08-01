@@ -1,3 +1,4 @@
+import pandas as pd
 import numpy as np
 from utils import *
 import pickle
@@ -12,12 +13,6 @@ RAW_DATA_PATH = "data/raw/"
 PREPARED_DATA_PATH = "data/prepared/"
 MODEL_PATH = "models/"
 os.makedirs(MODEL_PATH, exist_ok=True)
-
-# # Define evaluation metrics
-# def rmsle(y_true, y_pred):
-#     # Clip predictions to avoid log(0)
-#     y_pred = np.maximum(0, y_pred)
-#     return np.sqrt(mean_squared_log_error(y_true, y_pred))
 
 def load_data():
     df_train = pd.read_parquet(PREPARED_DATA_PATH + 'df_training.parquet')

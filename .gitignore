@@ -14,3 +14,5 @@ mlruns/
 # Ignore config folder used for local experiment tracking and grafana
 config/
 
+# Ignore python cache file
+src/__pycache_/
