@@ -13,3 +13,4 @@ mlruns/
 
 # Ignore config folder used for local experiment tracking and grafana
 config/
+
