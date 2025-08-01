@@ -50,3 +50,6 @@ src/train.py
 mlflow ui \
   --backend-store-uri sqlite:///mlflow.db \
   --default-artifact-root ./mlruns
+
+# get prediction and save submission data
+src/predict.py
