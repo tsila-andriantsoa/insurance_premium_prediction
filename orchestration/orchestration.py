@@ -1,30 +1,22 @@
 import numpy as np
 import pandas as pd
-from pathlib import Path
 import sys
 import os
 
-import os
-# Add the src directory to the system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
-
-# Now you can import your utils
-from utils import rmsle  # replace with your actual function
+from utils import rmsle
 
 import pickle
 
-import xgboost as xgb
-from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
-from hyperopt.pyll import scope
-
-
-
 from sklearn.model_selection import train_test_split
-
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
+
+import xgboost as xgb
+from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
+from hyperopt.pyll import scope
 
 from prefect import flow, task
 
