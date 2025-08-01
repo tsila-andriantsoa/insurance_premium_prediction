@@ -63,6 +63,15 @@ python orchestration/orchestration.py --process True
 
 
 ### Evidently
+- create docker-compose file
+
+- build docker container
+docker-compose up
+
+- test runing service (adminer, grafana)
+
+- model monitoring
+
 
 
 ### Deploy model using Docker
