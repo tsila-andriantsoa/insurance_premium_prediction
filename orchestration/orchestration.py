@@ -31,6 +31,7 @@ MODEL_PATH = "models/"
 os.makedirs(MODEL_PATH, exist_ok=True)
 RESULT_DATA_PATH = "data/result/"
 os.makedirs(RESULT_DATA_PATH, exist_ok=True)
+BEST_MODEL = MODEL_PATH + 'xgb_model.pickle'
 
 @task(log_prints=True)
 def load_raw_data():
@@ -119,6 +120,7 @@ def prepared_train_validation_data(df):
     df_training.to_parquet(PREPARED_DATA_PATH + 'df_training.parquet', index=False)
     df_validation.to_parquet(PREPARED_DATA_PATH + 'df_validation.parquet', index=False)
     print('train data and validation data saved into path: ', PREPARED_DATA_PATH)
+    return df_training, df_validation
 
 @task(log_prints=True)
 def train_models_and_log_experiments(df_train, df_validation):
@@ -243,16 +245,16 @@ def save_predictions(df_test, predictions):
         'id': df_test['id'].values,
         'premium_amount': predictions
     })
-    prediction.to_csv(RESULT_DATA_PATH + 'submission.csv', index = False, mode='x')
+    prediction.to_csv(RESULT_DATA_PATH + 'submission.csv', index = False, mode='w')
     print("prediction save at", RESULT_DATA_PATH)
     
 @flow(name="Insurance Premium pipeline")
 def pipeline():
     df_train, df_validation = load_raw_data()
     df_train_preprocessed = preprocess_data(df_train)
-    prepared_train_validation_data(df_train_preprocessed) 
-    train_models_and_log_experiments(df_train, df_validation)
-    best_model = train_best_model(df_train, df_validation)
+    df_training, df_validation = prepared_train_validation_data(df_train_preprocessed) 
+    # train_models_and_log_experiments(df_training, df_validation)
+    best_model = train_best_model(df_training, df_validation)
     save_model(best_model)
     df_test = load_test_data()
     df_test_prepared = prepare_test_data(df_test)

@@ -16,3 +16,4 @@ config/
 
 # Ignore python cache file
 src/__pycache_/
+orchestration/__pycache_/

@@ -41,15 +41,38 @@ The dataset is available on [Kaggle](https://www.kaggle.com/competitions/playgro
 
 ## Step
 
-# data preparation
+### data preparation
 src/data_preparation.py
-# model training and experimentation
+### model training and experimentation
 src/train.py
 
-## experiment tracking
+### experiment tracking
 mlflow ui \
   --backend-store-uri sqlite:///mlflow.db \
   --default-artifact-root ./mlruns
 
-# get prediction and save submission data
+### get prediction and save submission data
 src/predict.py
+
+### build prefect pipeline
+Start prefect server
+prefect server start
+
+Run prefect orchestration
+python orchestration/orchestration.py --process True
+
+
+### Evidently
+
+
+### Deploy model using Docker
+Build docker image
+docker build -t predict-app .
+
+Run docker image
+docker run -d -p 5000:5000 predict-app
+
+Do prediction
+python webservice/predict_test.py
+
+## Best pratices

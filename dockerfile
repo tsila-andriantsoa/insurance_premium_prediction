@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy requirements.txt and install dependencies
 COPY ["requirements.txt", "./"]
 
-# Install package from requirements.txt, you can bypass SSL certificate verification by adding the --trusted-host flag to pip install.
+# Install package from requirements.txt
 RUN pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
 
 # Copy application code and model
@@ -17,4 +17,4 @@ COPY ["webservice/predict_test.py", "./"]
 EXPOSE 5000
 
 # Start the Flask application
-CMD ["waitress-serve", "--host=0.0.0.0", "--port=5000", "predict:app"]
+CMD ["waitress-serve", "--host=0.0.0.0", "--port=5000", "app:app"]
