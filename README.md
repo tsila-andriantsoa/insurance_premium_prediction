@@ -5,7 +5,7 @@
 
 Insurance companies rely on accurate risk assessment to determine the premium charged to each customer. However, with diverse and often non-linear relationships between customer attributes (like credit score, income, health condition, etc.) and claim risks, it becomes challenging to set a fair and profitable premium.
 
-![Premium Insurance Prediction](https://github.com/tsila-andriantsoa/insurance_premium_prediction/blob/main/images/premium_insurance.jpg)
+![Premium Insurance Prediction](https://github.com/tsila-andriantsoa/insurance_premium_prediction/blob/main/images/premium_insurrance.jpg)
 
 This project tackles the challenge of predicting the insurance premium a customer should be charged using historical data from a Kaggle competition. By building a robust machine learning pipeline, we aim to:
 * Help insurance companies improve their pricing strategy
@@ -16,7 +16,9 @@ The project is also aligned to pratice course from MLOps Zoomcamp by DataTalksCl
 
 ## Dataset
 
-The dataset is available on [Kaggle](https://www.kaggle.com/competitions/playground-series-s4e12/overview)
+The dataset used in this project comes from the Kaggle Playground Series - Season 4, Episode 12 competition available on [Kaggle](https://www.kaggle.com/competitions/playground-series-s4e12/overview)
+
+🔹Dataset description
 
 | Column Name             | Type         | Description |
 |-------------------------|--------------|-------------|
@@ -41,11 +43,16 @@ The dataset is available on [Kaggle](https://www.kaggle.com/competitions/playgro
 | **property_type**       | Categorical  | Type of insured property (e.g., `"House"`, `"Apartment"`, `"Condo"`). Relevant for home insurance policies. |
 | **premium_amount**      | Numeric (Target) | The target variable — total premium amount charged for the policy. This is what the model aims to predict. |
 
+🔹 Files
+train.csv: Used to train and evaluate the machine learning model
+test.csv: Used to generate final predictions for competition submission
+
+🔹 Target Variable
+premium: The amount (in currency units) to be predicted per customer — this is the target column in train.csv.
 
 ## Project Structure
 
 ```
-.
 ├── config                       # Configuration folder for experiment tracking
 ├── data/                        # Dataset used for the project (raw, prepared and submission data)
 │   ├── prepared/
@@ -85,6 +92,7 @@ The dataset is available on [Kaggle](https://www.kaggle.com/competitions/playgro
 ├── docker-compose.yml             # Compose file to run all services (Flask, monitoring, etc.)
 ├── Dockerfile                     # Dockerfile to containerize the Flask app
 ├── LICENSE                        # License for the project
+├── Makefile                       # Build automation: training, testing, running, linting, etc.
 ├── mlflow.db                      # SQLite backend store for MLflow tracking
 ├── prefect.yaml                   # Prefect deployment configuration
 ├── pyproject.toml                 # Python project metadata
@@ -101,6 +109,9 @@ The dataset is available on [Kaggle](https://www.kaggle.com/competitions/playgro
 - Loads trained ML model from S3 using `boto3`
 - Dockerized for local or cloud deployment
 - Simple REST API with `/predict` endpoints
+- Testing code using pytest
+- Follow best practices using linter
+- Using makefile for building automation
 
 ## Prerequisites
 
@@ -108,53 +119,74 @@ The dataset is available on [Kaggle](https://www.kaggle.com/competitions/playgro
 - Installing required packages using requirements.txt
 - An **AWS S3 bucket** and AWS credentials with permission to read from S3 (ACCESS_KEY_ID, SECRET_ACCESS_KEY, BUCKET_NAME, MODEL_KEY)
 
-## Step
+## Project pipeline stages
 
-### data preparation
-src/data_preparation.py
-### model training and experimentation
-src/train.py
+### Data preparation:
+Load and prepare data for training.
 
-### experiment tracking
-mlflow ui \
-  --backend-store-uri sqlite:///mlflow.db \
-  --default-artifact-root ./mlruns
+```bash
+  python src/data_preparation.py
+```
+### Model training
+Run experiment tracking and train best model
+
+```bash
+  python src/train.py
+```
+Explore experiment tracking using Mflow UI
+
+```bash
+  mlflow ui \
+    --backend-store-uri sqlite:///mlflow.db \
+    --default-artifact-root ./mlruns
+```
+![mlflow experiment tracking](https://github.com/tsila-andriantsoa/insurance_premium_prediction/blob/main/images/mlflow_experiment.png)
 
 ### get prediction and save submission data
-src/predict.py
+Get prediction and submission ready file.
+
+```bash
+  python src/predict.py
+```
 
 ### build prefect pipeline
-Start prefect server
-prefect server start
+Start the prefect server
 
-Run prefect orchestration
-python orchestration/orchestration.py --process True
+```bash
+  prefect server start
+```
 
+Run prefect orchestration manually
 
-### Projet deployment
-- create docker-compose file
-
-- build docker container
-docker-compose up
-
-- test runing service (adminer, grafana)
-
-- model monitoring
-
-
+```bash
+  python orchestration/orchestration.py --process True
+```
+![orchestration](https://github.com/tsila-andriantsoa/insurance_premium_prediction/blob/main/images/prefect_pipeline.png)
 
 ### Deploy model using Docker
+
 Build docker image
-docker build -t predict-app .
 
-Run docker image
-docker run -d -p 5000:5000 predict-app
+```bash
+  docker build -t predict-app .
+```
 
-Do prediction
-python webservice/predict_test.py
+Deploy the endpoint
 
+```bash
+  docker run -d -p 5000:5000 predict-app
+```
+
+Do prediction.
+
+```bash
+  python webservice/predict_test.py
+```
 
 ### Monitoring with Evidently
 
-## Best pratices
-python linting : pylint --recussive=y .
+Explore evidently monitoring report for Data monitoring
+
+```bash
+  python monitoring/evidently_basic_monitoring.py
+```
