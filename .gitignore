@@ -20,3 +20,6 @@ orchestration/__pycache_/
 
 # Ignore pipenv configuration file
 myenv2/
+
+.pytest_cache/
+.vscode/
