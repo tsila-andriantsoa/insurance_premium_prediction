@@ -1,9 +1,7 @@
-
 import pandas as pd
-import pickle
 import numpy as np
+import pickle
 import xgboost as xgb
-from utils import *
 
 RAW_DATA_PATH = "data/raw/"
 PREPARED_DATA_PATH = "data/prepared/"
@@ -24,12 +22,9 @@ def prepare_test_data(df):
     return df
     
 def predict(df):
-
     X_matrix = xgb.DMatrix(df)
-
     with open(BEST_MODEL, 'rb') as f_in:
         best_model = pickle.load(f_in)
-
     predictions = best_model.predict(X_matrix)
     print("prediction done!")
     return predictions
@@ -42,10 +37,8 @@ def save_predictions(df_test, predictions):
     prediction.to_csv(RESULT_DATA_PATH + 'submission.csv', index = False, mode='x')
     print("prediction save at", RESULT_DATA_PATH)
     
-
-
 if __name__ == "__main__":
     df_test = load_test_data()
     df_test_prepared = prepare_test_data(df_test)
-    predictions = predict(df_test_prepared)
-    save_predictions(df_test, predictions)
+    my_predictions = predict(df_test_prepared)
+    save_predictions(df_test, my_predictions)
