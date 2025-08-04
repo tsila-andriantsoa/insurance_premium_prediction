@@ -44,6 +44,51 @@ The dataset is available on [Kaggle](https://www.kaggle.com/competitions/playgro
 
 ```
 .
+├── data/                        # Dataset used for the project (raw, prepared and submission data)
+│   ├── prepared/
+│   └── raw/
+│   └── result/
+├── images/                        # Visual assets for documentation (e.g., MLflow UI, Prefect pipeline)
+│   ├── mlflow_experiment.png
+│   └── prefect_pipeline.png
+├── mlruns/                        # MLflow experiment artifacts (metrics, parameters, models)
+├── models/                        # Serialized trained models
+│   └── xgb_model.pickle
+├── monitoring/                    # Scripts and reports for model monitoring (Evidently)
+│   ├── evidently_basic_monitoring.py
+│   └── evidently_report.html
+├── notebook/                      # Jupyter notebooks for EDA and monitoring
+│   ├── data_monitoring.ipynb
+│   └── notebook.ipynb
+├── orchestration/                # Prefect flow definitions and orchestration logic
+│   ├── __pycache__/
+│   └── orchestration.py
+├── src/                           # Core logic: data prep, training, prediction
+│   ├── __pycache__/
+│   ├── data_preparation.py        # Data cleaning and feature engineering
+│   ├── predict.py                 # Generate predictions and prepare submission
+│   ├── train.py                   # Model training and saving logic
+│   └── utils.py                   # Utility functions (e.g., for logging, preprocessing)
+├── tests/                         # Unit tests for pipeline components
+│   ├── __pycache__/
+│   ├── __init__.py
+│   ├── test_data_preparation.py   # Tests for data_preparation.py
+│   ├── test_model_training.py     # Tests for train.py
+│   └── test_predict.py            # Tests for predict.py
+├── webservice/                    # Web service for serving the model via Flask
+│   └── predict_test.py            # Script to send test prediction requests
+├── .gitignore                     # Git ignored files list
+├── .prefectignore                 # Files to ignore when deploying Prefect flows
+├── docker-compose.yml             # Compose file to run all services (Flask, monitoring, etc.)
+├── Dockerfile                     # Dockerfile to containerize the Flask app
+├── LICENSE                        # License for the project
+├── mlflow.db                      # SQLite backend store for MLflow tracking
+├── prefect.yaml                   # Prefect deployment configuration
+├── pyproject.toml                 # Python project metadata
+├── README.md                      # Project documentation
+└── requirements.txt               # Python dependencies
+
+
 ├── config                 # Configuration folder for experiment tracking
 ├── data                   # Data
 ├──├── raw                 # Raw
