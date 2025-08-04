@@ -5,6 +5,8 @@
 
 Insurance companies rely on accurate risk assessment to determine the premium charged to each customer. However, with diverse and often non-linear relationships between customer attributes (like credit score, income, health condition, etc.) and claim risks, it becomes challenging to set a fair and profitable premium.
 
+![Premium Insurance Prediction](https://github.com/tsila-andriantsoa/insurance_premium_prediction/blob/main/images/premium_insurance.jpg)
+
 This project tackles the challenge of predicting the insurance premium a customer should be charged using historical data from a Kaggle competition. By building a robust machine learning pipeline, we aim to:
 * Help insurance companies improve their pricing strategy
 * Ensure customers are charged fairly based on their risk profile
