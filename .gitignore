@@ -26,3 +26,5 @@ myenv2/
 
 # Ignore test cache file
 test/__pycache__
+
+config/

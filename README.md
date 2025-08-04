@@ -53,7 +53,6 @@ premium: The amount (in currency units) to be predicted per customer — this is
 ## Project Structure
 
 ```
-├── config                       # Configuration folder for experiment tracking
 ├── data/                        # Dataset used for the project (raw, prepared and submission data)
 │   ├── prepared/
 │   └── raw/
