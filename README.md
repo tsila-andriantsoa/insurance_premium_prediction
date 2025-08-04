@@ -62,7 +62,7 @@ Run prefect orchestration
 python orchestration/orchestration.py --process True
 
 
-### Evidently
+### Projet deployment
 - create docker-compose file
 
 - build docker container
@@ -83,5 +83,8 @@ docker run -d -p 5000:5000 predict-app
 
 Do prediction
 python webservice/predict_test.py
+
+
+### Monitoring with Evidently
 
 ## Best pratices

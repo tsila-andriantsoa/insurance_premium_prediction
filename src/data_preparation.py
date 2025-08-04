@@ -9,8 +9,8 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
 
-RAW_DATA_PATH = "data/raw/"
-PREPARED_DATA_PATH = "data/prepared/"
+RAW_DATA_PATH = 'data/raw/'
+PREPARED_DATA_PATH = 'data/prepared/'
 os.makedirs(PREPARED_DATA_PATH, exist_ok=True)
 
 def load_raw_data():
