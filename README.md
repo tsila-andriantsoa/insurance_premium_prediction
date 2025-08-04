@@ -88,3 +88,4 @@ python webservice/predict_test.py
 ### Monitoring with Evidently
 
 ## Best pratices
+python linting : pylint --recussive=y .
