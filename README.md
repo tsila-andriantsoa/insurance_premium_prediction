@@ -103,15 +103,15 @@ premium: The amount (in currency units) to be predicted per customer — this is
 
 ## Features
 
-- Training machine learning model to predict premium insurance
+- Train machine learning model to predict premium insurance
 - Use MLFlow for experiment tracking
-- Use prefect for pipeline and save model into S3 bucket.
-- Loads trained ML model from S3 using `boto3`
-- Dockerized for local or cloud deployment
-- Simple REST API with `/predict` endpoints
-- Testing code using pytest
+- Use prefect for pipeline and save model into local artifact.
+- Load trained ML model from local artifact
+- Dockeriz for local or cloud deployment
+- Run simple REST API with `/predict` endpoints
+- Test code using pytest
 - Follow best practices using linter
-- Using makefile for building automation
+- Use makefile for building automation
 
 ## Prerequisites
 
@@ -189,4 +189,37 @@ Explore evidently monitoring report for Data monitoring
 
 ```bash
   python monitoring/evidently_basic_monitoring.py
+```
+
+## Clone the project and explore by yourself
+```bash
+# 0. Clone the project repo
+git https://github.com/tsila-andriantsoa/insurance_premium_prediction.git
+
+# 1. Create conda environment and install libraries
+conda create -n myenv python=3.10 -y
+conda activate myenv
+pip install -r requirements.txt
+
+# 2. Launch MLflow and Prefect locally
+mlflow ui --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlruns
+prefect server start
+
+# 3. Deploy and run pipeline
+a. Run pipeline using prefect
+
+prefect deploy orchestration/orchestration.py:my_pipeline -n "Insurance Premium pipeline"
+prefect deployment run "insurance_premium_prediction/Insurance Premium pipeline"
+
+b. Run manually pipeline stages: from model training to model deployment using Docker
+python src/data_preparation.py
+python src/train.py
+python src/predict.py
+docker build -t predict-app .
+docker run -d -p 5000:5000 predict-app
+python webservice/predict_test.py
+
+# 4. Monitor your data
+
+python monitoring/evidently_monitor.py
 ```
