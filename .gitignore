@@ -15,11 +15,14 @@ mlruns/
 config/
 
 # Ignore python cache file
-src/__pycache_/
-orchestration/__pycache_/
+src/__pycache__/
+orchestration/__pycache__/
 
 # Ignore pipenv configuration file
 myenv2/
 
 .pytest_cache/
 .vscode/
+
+# Ignore test cache file
+test/__pycache__
