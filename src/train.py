@@ -1,13 +1,15 @@
-from utils import *
 import os
-
 import pandas as pd
+
 import pickle
 
 import xgboost as xgb
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
 from hyperopt.pyll import scope
+
 import mlflow
+
+from utils import rmsle, prepare_xgb_data
 
 RAW_DATA_PATH = "data/raw/"
 PREPARED_DATA_PATH = "data/prepared/"
@@ -19,15 +21,6 @@ def load_data():
     df_validation = pd.read_parquet(PREPARED_DATA_PATH+ 'df_validation.parquet')
     print("data loaded")
     return df_train, df_validation
-
-def prepare_xgb_data(df_train, df_validation):
-    X_train_part = df_train.drop(columns = ['premium_amount'])
-    y_train_part = df_train[['premium_amount']]
-    X_validation_part = df_validation.drop(columns = ['premium_amount'])
-    y_validation_part = df_validation[['premium_amount']]
-    train = xgb.DMatrix(X_train_part, label=y_train_part)
-    valid = xgb.DMatrix(X_validation_part, label=y_validation_part)
-    return X_train_part, y_train_part, X_validation_part, y_validation_part, train, valid
 
 def train_models_and_log_experiments(df_train, df_validation):
     _, _, _, y_validation_part, train, valid = prepare_xgb_data(df_train, df_validation)

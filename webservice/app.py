@@ -1,8 +1,7 @@
 import numpy as np
-import pandas as pd
 import pickle
+import pandas as pd
 from flask import Flask, request, jsonify
-
 
 app = Flask('Premium insurance prediction')
 

@@ -1,8 +1,8 @@
-import sys
 import os
-import pickle
+import sys
 import numpy as np
 import pandas as pd
+import pickle
 
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
@@ -14,12 +14,13 @@ import xgboost as xgb
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
 from hyperopt.pyll import scope
 
-from prefect import flow, task
-
 import mlflow
 
+from prefect import flow, task
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
-from utils import rmsle
+from utils import rmsle, prepare_xgb_data
+
 
 mlflow.set_tracking_uri('sqlite:////workspaces/mlflow.db')
 mlflow.set_experiment('insurance-premium-experiment')
@@ -96,11 +97,10 @@ def prepared_train_validation_data(df):
     # select best columns
     top_features = ['credit_score', 'customer_feedback_good', 'annual_income', 'health_score']
     X_train_part, X_validation_part, y_train_part, y_validation_part = train_test_split(df_X_full_train_transformed[top_features], Y_train, test_size=0.2, random_state=42)
-    # save data
     df_training = X_train_part.copy()
-    df_training['premium_amount'] = y_train_part.values  # Or just y_training_part if the index aligns
+    df_training['premium_amount'] = y_train_part.values
     df_validation = X_validation_part.copy()
-    df_validation['premium_amount'] = y_validation_part.values  # Or just y_training_part if the index aligns
+    df_validation['premium_amount'] = y_validation_part.values
     df_training.to_parquet(PREPARED_DATA_PATH + 'df_training.parquet', index=False)
     df_validation.to_parquet(PREPARED_DATA_PATH + 'df_validation.parquet', index=False)
     print('train data and validation data saved into path: ', PREPARED_DATA_PATH)
@@ -108,12 +108,7 @@ def prepared_train_validation_data(df):
 
 @task(log_prints=True)
 def train_models_and_log_experiments(df_train, df_validation):
-    X_train_part = df_train.drop(columns = ['premium_amount'])
-    y_train_part = df_train[['premium_amount']]
-    X_validation_part = df_validation.drop(columns = ['premium_amount'])
-    y_validation_part = df_validation[['premium_amount']]
-    train = xgb.DMatrix(X_train_part, label=y_train_part)
-    valid = xgb.DMatrix(X_validation_part, label=y_validation_part)
+    _, _, _, y_validation_part, train, valid = prepare_xgb_data(df_train, df_validation)
     mlflow.set_tracking_uri("sqlite:///mlflow.db")
     mlflow.set_experiment('insurance-premium-experiment')
 
@@ -153,12 +148,7 @@ def train_models_and_log_experiments(df_train, df_validation):
 
 @task(log_prints=True)
 def train_best_model(df_train, df_validation):
-    X_train_part = df_train.drop(columns = ['premium_amount'])
-    y_train_part = df_train[['premium_amount']]
-    X_validation_part = df_validation.drop(columns = ['premium_amount'])
-    y_validation_part = df_validation[['premium_amount']]
-    train = xgb.DMatrix(X_train_part, label=y_train_part)
-    valid = xgb.DMatrix(X_validation_part, label=y_validation_part)
+    _, _, _, y_validation_part, train, valid = prepare_xgb_data(df_train, df_validation)
     best_parameters = {
         'max_depth': 6,
         'learning_rate': 0.1967,

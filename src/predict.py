@@ -1,6 +1,6 @@
+import pickle
 import pandas as pd
 import numpy as np
-import pickle
 import xgboost as xgb
 
 RAW_DATA_PATH = "data/raw/"
@@ -30,8 +30,9 @@ def predict(df):
     return predictions
 
 def save_predictions(df_test, predictions):
+    ids = df_test['id'].values
     prediction = pd.DataFrame({
-        'id': df_test['id'].values,
+        'id': ids,
         'premium_amount': predictions
     })
     prediction.to_csv(RESULT_DATA_PATH + 'submission.csv', index = False, mode='x')

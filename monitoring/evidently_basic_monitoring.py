@@ -1,7 +1,12 @@
+import os
+import sys
 import pandas as pd
+
 import pickle
-import xgboost as xgb
-    
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+from utils import prepare_xgb_data
+
 from evidently import Dataset
 from evidently import DataDefinition
 from evidently import Report
@@ -21,12 +26,7 @@ def prepare_data():
     validation = pd.read_parquet(PREPARED_VALIDATION_DATA_PATH)
     with open (MODEL_PATH, 'rb') as f_in:
         loaded_model = pickle.load(f_in)
-    X_train = train[numerical_features]
-    y_train = train[target].values
-    X_validation = validation[numerical_features]
-    y_validation = validation[target].values
-    xgb_train = xgb.DMatrix(X_train, label=y_train)
-    xgb_valid = xgb.DMatrix(X_validation, label=y_validation)
+    _, _, _, _, xgb_train, xgb_valid = prepare_xgb_data(train, validation)
     train_preds = loaded_model.predict(xgb_train)
     train['prediction'] = train_preds
     validation_preds = loaded_model.predict(xgb_valid)
