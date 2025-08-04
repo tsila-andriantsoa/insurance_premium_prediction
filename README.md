@@ -44,6 +44,7 @@ The dataset is available on [Kaggle](https://www.kaggle.com/competitions/playgro
 
 ```
 .
+├── config                       # Configuration folder for experiment tracking
 ├── data/                        # Dataset used for the project (raw, prepared and submission data)
 │   ├── prepared/
 │   └── raw/
@@ -87,17 +88,6 @@ The dataset is available on [Kaggle](https://www.kaggle.com/competitions/playgro
 ├── pyproject.toml                 # Python project metadata
 ├── README.md                      # Project documentation
 └── requirements.txt               # Python dependencies
-
-
-├── config                 # Configuration folder for experiment tracking
-├── data                   # Data
-├──├── raw                 # Raw
-├── notebook               # Exploration
-├── orchestration          # Orchestration
-├── webservice             # Model deployment
-├── Dockerfile             # Docker configuration
-├── requirements.txt       # Python dependencies
-├── README.md              # Documentation
 
 ```
 
